@@ -1,0 +1,13 @@
+{
+    "listenAddrStrings": [
+        "/ip4/0.0.0.0/tcp/55555",
+        "/ip4/0.0.0.0/udp/55555/quic",
+        "/ip6/::/tcp/55555",
+        "/ip6/::/udp/55555/quic"
+    ],
+    "whitelistPeers": [],
+    "whitelistAddrs": [
+        "127.0.0.1",
+        "::1"
+    ]
+}
