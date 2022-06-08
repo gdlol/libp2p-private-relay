@@ -47,8 +47,5 @@ func (filter *aclFilter) AllowReserve(p peer.ID, a ma.Multiaddr) bool {
 }
 
 func (filter *aclFilter) AllowConnect(src peer.ID, srcAddr ma.Multiaddr, dest peer.ID) bool {
-	if filter.isWhitelistedPeer(dest) {
-		return true
-	}
-	return filter.isWhitelistedPeer(src) || filter.isWhitelistedAddr(srcAddr)
+	return true
 }
