@@ -1,6 +1,7 @@
 package main
 
 import (
+	"math"
 	"time"
 
 	"github.com/libp2p/go-libp2p"
@@ -23,6 +24,14 @@ func getSavedIdentity(ps peerstore.Peerstore) (identity libp2p.Option, ok bool) 
 }
 
 func getHostOptions(identity libp2p.Option, ps peerstore.Peerstore, listenAddrStrings []string, acl relay.ACLFilter) []libp2p.Option {
+	relayResources := relay.DefaultResources()
+	relayResources.Limit = nil
+	relayResources.MaxReservations = math.MaxUint16
+	relayResources.MaxCircuits = math.MaxUint16
+	relayResources.MaxReservationsPerPeer = math.MaxUint16
+	relayResources.MaxReservationsPerIP = math.MaxUint16
+	relayResources.MaxReservationsPerASN = math.MaxUint16
+
 	options := []libp2p.Option{
 		identity,
 		libp2p.Peerstore(ps),
@@ -37,8 +46,7 @@ func getHostOptions(identity libp2p.Option, ps peerstore.Peerstore, listenAddrSt
 		libp2p.EnableNATService(),
 		libp2p.AutoNATServiceRateLimit(60, 6, time.Minute),
 		libp2p.EnableRelayService(
-			relay.WithResources(relay.DefaultResources()),
-			relay.WithLimit(nil),
+			relay.WithResources(relayResources),
 			relay.WithACL(acl)),
 		libp2p.ForceReachabilityPublic(),
 	}
