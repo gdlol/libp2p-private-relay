@@ -24,11 +24,11 @@ func loadConfig() (Config, error) {
 	var config Config
 	data, err := os.ReadFile("config.json")
 	if err != nil {
-		return config, fmt.Errorf("Error loading Config: %w", err)
+		return config, fmt.Errorf("error loading Config: %w", err)
 	}
 	err = json.Unmarshal(data, &config)
 	if err != nil {
-		return config, fmt.Errorf("Error parsing Config: %w", err)
+		return config, fmt.Errorf("error parsing Config: %w", err)
 	}
 	return config, nil
 }

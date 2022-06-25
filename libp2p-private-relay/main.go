@@ -18,7 +18,7 @@ func loadACL(config Config) (*aclFilter, error) {
 	for _, s := range config.WhitelistPeers {
 		id, err := peer.IDFromString(s)
 		if err != nil {
-			return nil, fmt.Errorf("Error parsing peer id: %w", err)
+			return nil, fmt.Errorf("error parsing peer id: %w", err)
 		}
 		idList = append(idList, id)
 	}
@@ -26,7 +26,7 @@ func loadACL(config Config) (*aclFilter, error) {
 	for _, s := range config.WhitelistAddrs {
 		ip := net.ParseIP(s)
 		if ip == nil {
-			return nil, fmt.Errorf("Error parsing IP address: %s", s)
+			return nil, fmt.Errorf("error parsing IP address: %s", s)
 		}
 		ipList = append(ipList, ip)
 	}
@@ -55,12 +55,12 @@ func main() {
 	dbPath := "/root/data/datastore.db"
 	ds, err := leveldb.NewDatastore(dbPath, nil)
 	if err != nil {
-		log.Fatalln(fmt.Errorf("Error creating DataStore: %w", err))
+		log.Fatalln(fmt.Errorf("error creating DataStore: %w", err))
 	}
 	defer ds.Close()
 	ps, err := pstoreds.NewPeerstore(ctx, ds, pstoreds.DefaultOpts())
 	if err != nil {
-		log.Fatalln(fmt.Errorf("Error creating PeerStore: %w", err))
+		log.Fatalln(fmt.Errorf("error creating PeerStore: %w", err))
 	}
 	defer ps.Close()
 
@@ -83,7 +83,7 @@ func main() {
 		ID: host.ID(),
 	})
 	if err != nil {
-		log.Fatalln(fmt.Errorf("Error getting self addresses: %w", err))
+		log.Fatalln(fmt.Errorf("error getting self addresses: %w", err))
 	}
 	log.Printf("Self addresses: %v\n", selfAddrs)
 
